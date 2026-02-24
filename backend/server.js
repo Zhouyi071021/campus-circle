@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://你的前端域名.vercel.app'  // 替换为您的实际 Vercel 前端域名
+  'https://campus-circle-nine.vercel.app/'  // 替换为您的实际 Vercel 前端域名
 ];
 
 app.use(cors({
