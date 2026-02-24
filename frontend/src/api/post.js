@@ -25,3 +25,6 @@ export const collectPost = (id) => apiClient.post(`/api/posts/${id}/collect`);
 
 // 删除帖子
 export const deletePost = (id) => apiClient.delete(`/api/posts/${id}`);
+// 根据标签获取帖子列表
+export const getPostsByTag = (tag, page = 1, pageSize = 20) =>
+  apiClient.get(`/api/posts/tag/${encodeURIComponent(tag)}`, { params: { page, pageSize } });

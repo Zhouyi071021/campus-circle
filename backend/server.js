@@ -1,5 +1,21 @@
 const express = require('express');
 const cors = require('cors');
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://你的前端域名.vercel.app'  // 替换为您的实际 Vercel 前端域名
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 require('dotenv').config();
 const cron = require('node-cron');
 const supabase = require('./utils/supabase'); // 引入 supabase 客户端
@@ -103,7 +119,10 @@ cron.schedule('0 3 * * *', async () => {
   }
 });
 
-// 启动服务器
-app.listen(PORT, () => {
-  console.log(`服务器运行在 http://localhost:${PORT}`);
-});
+// 仅在非 Vercel 环境启动服务器
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`服务器运行在 http://localhost:${PORT}`);
+  });
+}
+module.exports = app;

@@ -57,3 +57,6 @@ export const getMyPosts = (page = 1, pageSize = 20) =>
 
 // 更新用户资料（需认证）
 export const updateProfile = (data) => apiClient.put('/api/users/profile', data);
+
+// 删除评论（需认证）  <-- 新增
+export const deleteComment = (commentId) => apiClient.delete(`/api/comments/${commentId}`);
